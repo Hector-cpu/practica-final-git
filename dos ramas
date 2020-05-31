@@ -1,2 +1,19 @@
-git branch admin
-git branch usuario
+$ git clone project2 
+$ cd project2
+$ git filter-branch --subdirectory-filter deeply/buried/Java/source/directory/A -- --all
+$ git remote rm Origin  # so I don't accidentally the repo ;-)
+$ mkdir -p deeply/buried/different/Java/source/directory/B
+$ for f in *.Java; do 
+>  git mv $f deeply/buried/different/Java/source/directory/B
+>  done
+$ git commit -m "moved files to new subdirectory"
+$ cd ..
+$
+$ git clone project1
+$ cd project1
+$ git remote add p2 ../project2
+$ git fetch p2
+$ git branch p2 remotes/p2/master
+$ git merge p2 # --allow-unrelated-histories for git 2.9
+$ git remote rm p2
+$ git Push
